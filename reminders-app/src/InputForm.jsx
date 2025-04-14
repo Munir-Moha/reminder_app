@@ -1,23 +1,5 @@
 import PropTypes from "prop-types";
 
-InputForm.propTypes = {
-  userInput: PropTypes.shape({
-    reminderText: PropTypes.string,
-    dueDate: PropTypes.string,
-  }),
-  setUserInput: PropTypes.func,
-};
-
-const date = Date();
-const formattedDate = date.toString().substr(0, 10);
-
-InputForm.defaultProps = {
-  userInput: {
-    reminderText: "",
-    dueDate: formattedDate,
-  },
-};
-
 function InputForm({
   userInput = { reminderText: "", dueDate: formattedDate },
   setUserInput,
@@ -37,5 +19,23 @@ function InputForm({
     </form>
   );
 }
+
+InputForm.propTypes = {
+  userInput: PropTypes.shape({
+    reminderText: PropTypes.string,
+    dueDate: PropTypes.string,
+  }),
+  setUserInput: PropTypes.func,
+};
+
+const date = Date();
+const formattedDate = date.toString().substr(0, 10);
+
+InputForm.defaultProps = {
+  userInput: {
+    reminderText: "",
+    dueDate: formattedDate,
+  },
+};
 
 export default InputForm;
