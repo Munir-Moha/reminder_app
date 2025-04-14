@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import Reminder from "./Reminder";
 
 const date = new Date();
-const formattedDate = date.toISOString().substr(0, 10);
+const formattedDate = date.toISOString().substring(0, 10);
 
 function RemindersList({ reminders }) {
   const hasReminders = reminders && reminders.length > 0;
@@ -10,7 +10,7 @@ function RemindersList({ reminders }) {
   const fallbackReminder = {
     reminderText: "No Reminder Yet",
     dueDate: formattedDate,
-    isComlete: false,
+    isComplete: false,
   };
 
   const safeReminders = hasReminders ? reminders : [fallbackReminder];
@@ -19,7 +19,7 @@ function RemindersList({ reminders }) {
     <Reminder
       reminderText={reminder.reminderText}
       dueDate={reminder.dueDate}
-      isComlete={reminder.isComlete}
+      isComplete={reminder.isComplete}
       id={index}
       key={index}
     />
@@ -34,7 +34,7 @@ RemindersList.propTypes = {
     PropTypes.shape({
       reminderText: PropTypes.string,
       dueDate: PropTypes.string,
-      isComlete: PropTypes.bool,
+      isComplete: PropTypes.bool,
     })
   ),
 };
@@ -45,7 +45,7 @@ RemindersList.defaultProps = {
     {
       reminderText: "No Reminder Yet",
       dueDate: formattedDate,
-      isComlete: false,
+      isComplete: false,
     },
   ],
 };

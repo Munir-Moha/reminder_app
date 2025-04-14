@@ -1,21 +1,35 @@
-import { useState } from 'react';
-import InputForm from './InputForm';
-import FilterSelect from './FilterSelect';
-import RemindersList from './RemindersList';
+import { useState } from "react";
+import InputForm from "./InputForm";
+import FilterSelect from "./FilterSelect";
+import RemindersList from "./RemindersList";
 
-function App(){
-    const [reminders, setReminders] = useState();
-    const [userInput, setUserInput] = useState();
-    const [selectedFilter, setSelectedFilter] = useState('All');
-    
+function App() {
+  const [reminders, setReminders] = useState();
+  const [userInput, setUserInput] = useState();
+  const [selectedFilter, setSelectedFilter] = useState("All");
 
-    return (
-        <div>
-            <InputForm userInput={userInput} setUserInput={setUserInput}/>
-            <FilterSelect selectedFilter={selectedFilter} setSelectedFilter={setSelectedFilter}/>
-            <RemindersList reminders={reminders}/>
-        </div>
-    );
+  const addNewReminder = (itemToAdd) => {
+    if (reminders === undefined) {
+      setReminders([itemToAdd]);
+    } else {
+      setReminders([...reminders, itemToAdd]);
+    }
+  };
+
+  return (
+    <div>
+      <InputForm
+        userInput={userInput}
+        setUserInput={setUserInput}
+        addNewReminder={addNewReminder}
+      />
+      <FilterSelect
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+      />
+      <RemindersList reminders={reminders} />
+    </div>
+  );
 }
 
 export default App;
