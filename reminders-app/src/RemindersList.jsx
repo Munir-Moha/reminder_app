@@ -1,13 +1,42 @@
+import PropTypes from "prop-types";
 import Reminder from "./Reminder";
 
-function RemindersList(props){
-    return(
-        <div>
-            <Reminder reminderText="Pick up Wesley" dueDate="2364-01-15" isComlete={false}/>
-            <Reminder reminderText="Meet with Jean-luc" dueDate="2364-01-29" isComlete={false}/>
-            <Reminder reminderText="Holodeck time!" dueDate="2364-06-01" isComlete={false}/>
-        </div>
+RemindersList.prototype = {
+  reminders: PropTypes.array,
+};
+
+const date = new Date();
+const formattedDate = date.toISOString().substr(0, 10);
+
+RemindersList.defaultProps = {
+  reminders: [
+    {
+      reminderText: "No Reminder Yet",
+      dueDate: formattedDate,
+      isComlete: false,
+    },
+  ],
+};
+
+function RemindersList({
+  propReminders = {
+    reminderText: "",
+    dueDate: formattedDate,
+    isComlete: false,
+  },
+}) {
+  const reminders = propReminders.map((reminder, index) => {
+    return (
+      <Reminder
+        reminderText={reminder.reminderText}
+        dueDate={reminder.dueDate}
+        isComlete={reminder.isComlete}
+        id={index}
+        key={index}
+      />
     );
+  });
+  return <div>{reminders}</div>;
 }
 
 export default RemindersList;
