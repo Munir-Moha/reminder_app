@@ -2,7 +2,8 @@ import PropTypes from "prop-types";
 
 function InputForm({
   userInput = { reminderText: "", dueDate: formattedDate },
-  setUserInput, addNewReminder,
+  setUserInput,
+  addNewReminder,
 }) {
   const handleTextChange = (e) => {
     const newUserInput = { ...userInput, reminderText: e.target.value };
@@ -18,9 +19,11 @@ function InputForm({
 
   const handleClick = (e) => {
     e.preventDefault();
-    const itemToAdd = {...userInput, isComplete: false};
+    const itemToAdd = { ...userInput, isComplete: false };
     addNewReminder(itemToAdd);
-  }
+    setUserInput({ reminderText: "", dueDate: formattedDate });
+    // Reset the input fields after adding the reminder
+  };
 
   return (
     <form>
@@ -31,10 +34,17 @@ function InputForm({
         placeholder="What do you want to do?"
         onChange={handleTextChange}
       />
+
+      <input
+        value={userInput.dueDate}
+        id="dueDate"
+        type="date"
+        onChange={handleDateChange}
+      />
       <br />
-      <input value={userInput.dueDate} id="dueDate" type="date"  onChange={handleDateChange}/>
-      <br />
-      <button onClick={handleClick}>Add Item</button>
+      <button type="button" onClick={handleClick}>
+        Add Item
+      </button>
     </form>
   );
 }

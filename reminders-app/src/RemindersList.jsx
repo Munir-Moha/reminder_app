@@ -4,22 +4,23 @@ import Reminder from "./Reminder";
 const date = new Date();
 const formattedDate = date.toISOString().substring(0, 10);
 
-function RemindersList({ reminders }) {
-  const hasReminders = reminders && reminders.length > 0;
+function RemindersList(props) {
+  const hasReminders = props.reminders && props.reminders.length > 0;
 
   const fallbackReminder = {
     reminderText: "No Reminder Yet",
     dueDate: formattedDate,
-    isComplete: false,
+    isComplete: true,
   };
 
-  const safeReminders = hasReminders ? reminders : [fallbackReminder];
+  const safeReminders = hasReminders ? props.reminders : [fallbackReminder];
 
   const reminderItems = safeReminders.map((reminder, index) => (
     <Reminder
       reminderText={reminder.reminderText}
       dueDate={reminder.dueDate}
       isComplete={reminder.isComplete}
+      setIsComplete={props.setIsComplete}
       id={index}
       key={index}
     />
@@ -45,7 +46,7 @@ RemindersList.defaultProps = {
     {
       reminderText: "No Reminder Yet",
       dueDate: formattedDate,
-      isComplete: false,
+      isComplete: true,
     },
   ],
 };
